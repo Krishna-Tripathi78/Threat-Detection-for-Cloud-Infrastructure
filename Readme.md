@@ -81,15 +81,15 @@ Cloud environments generate millions of log events every day, making manual secu
 
 ## Tech Stack
 
-| Layer            | Technology                          |
-|------------------|-------------------------------------|
-| Cloud Logs       | AWS CloudTrail + `boto3`            |
-| ML Model         | `scikit-learn` — Isolation Forest   |
-| AI Explainer     | OpenAI API (GPT-4o)                 |
-| Alerting         | Custom alert manager + responder    |
-| Dashboard        | Flask + Jinja2 + Chart.js           |
-| Configuration    | `python-dotenv`                     |
-| Testing          | `pytest` + `unittest.mock`          |
+| Layer         | Technology                        |
+| ------------- | --------------------------------- |
+| Cloud Logs    | AWS CloudTrail + `boto3`          |
+| ML Model      | `scikit-learn` — Isolation Forest |
+| AI Explainer  | OpenAI API (GPT-4o)               |
+| Alerting      | Custom alert manager + responder  |
+| Dashboard     | Flask + Jinja2 + Chart.js         |
+| Configuration | `python-dotenv`                   |
+| Testing       | `pytest` + `unittest.mock`        |
 
 ---
 
@@ -182,15 +182,15 @@ FLASK_PORT=5000
 FLASK_DEBUG=false
 ```
 
-| Variable                | Required | Description                              |
-|-------------------------|----------|------------------------------------------|
-| `OPENAI_API_KEY`        | ✅       | OpenAI API key for GPT explainer         |
-| `AWS_ACCESS_KEY_ID`     | ✅       | AWS access key                           |
-| `AWS_SECRET_ACCESS_KEY` | ✅       | AWS secret key                           |
-| `AWS_REGION`            | ✅       | AWS region (e.g. `us-east-1`)            |
+| Variable                | Required | Description                                    |
+| ----------------------- | -------- | ---------------------------------------------- |
+| `OPENAI_API_KEY`        | ✅       | OpenAI API key for GPT explainer               |
+| `AWS_ACCESS_KEY_ID`     | ✅       | AWS access key                                 |
+| `AWS_SECRET_ACCESS_KEY` | ✅       | AWS secret key                                 |
+| `AWS_REGION`            | ✅       | AWS region (e.g. `us-east-1`)                  |
 | `ANOMALY_THRESHOLD`     | ❌       | Isolation Forest score cutoff (default `-0.1`) |
-| `FLASK_PORT`            | ❌       | Dashboard port (default `5000`)          |
-| `FLASK_DEBUG`           | ❌       | Enable Flask debug mode (default `false`)|
+| `FLASK_PORT`            | ❌       | Dashboard port (default `5000`)                |
+| `FLASK_DEBUG`           | ❌       | Enable Flask debug mode (default `false`)      |
 
 ### Run the Pipeline
 
@@ -214,42 +214,14 @@ pytest tests/ -v
 
 ## API Endpoints
 
-| Method | Endpoint        | Description                              |
-|--------|-----------------|------------------------------------------|
-| `GET`  | `/`             | Dashboard home page                      |
-| `GET`  | `/api/logs`     | Returns all parsed log events as JSON    |
-| `GET`  | `/api/anomalies`| Returns anomaly-flagged events           |
-| `GET`  | `/api/alerts`   | Returns all generated alerts             |
-| `POST` | `/api/run`      | Triggers the full pipeline on demand     |
-| `POST` | `/api/respond`  | Triggers a simulated response action     |
-
----
-
-## Security Notes
-
-> ⚠️ Never commit your `.env` file — it is excluded via `.gitignore`
-
-- Use **IAM roles with least-privilege** permissions for CloudTrail access — never use root credentials
-- All response actions run in **simulate mode** by default — set `SIMULATE_MODE=false` only in controlled environments
-- Rotate AWS credentials regularly and prefer **IAM roles over long-lived access keys** where possible
-- Review `notes/iam_policy_sample.json` for the minimum required IAM policy
-
----
-
-## Roadmap
-
-See [`ROADMAP.md`](ROADMAP.md) for the full 8-week, 30-minutes/day build plan.
-
-| Week | Focus                           | Deliverable                        |
-|------|---------------------------------|------------------------------------|
-| 1    | Security + cloud logging basics | Understand logs and attack patterns|
-| 2    | Data pipeline setup             | Working preprocess pipeline        |
-| 3    | ML anomaly detection            | Trained Isolation Forest model     |
-| 4    | Threat intelligence layer       | Risk-scored alert output           |
-| 5    | AI threat explanation           | AI explanations integrated         |
-| 6    | Automated response + API        | Response simulation + Flask API    |
-| 7    | Dashboard + monitoring          | Working real-time dashboard        |
-| 8    | Hardening + docs + multi-cloud  | End-to-end demo complete           |
+| Method | Endpoint         | Description                           |
+| ------ | ---------------- | ------------------------------------- |
+| `GET`  | `/`              | Dashboard home page                   |
+| `GET`  | `/api/logs`      | Returns all parsed log events as JSON |
+| `GET`  | `/api/anomalies` | Returns anomaly-flagged events        |
+| `GET`  | `/api/alerts`    | Returns all generated alerts          |
+| `POST` | `/api/run`       | Triggers the full pipeline on demand  |
+| `POST` | `/api/respond`   | Triggers a simulated response action  |
 
 ---
 
