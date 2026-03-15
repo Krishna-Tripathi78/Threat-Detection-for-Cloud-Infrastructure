@@ -1,0 +1,7 @@
+boto3
+scikit-learn
+pandas
+numpy
+openai
+flask
+python-dotenv
